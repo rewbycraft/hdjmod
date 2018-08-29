@@ -16,7 +16,7 @@ makedepends=('rpmextract' 'linux-headers')
 optdepends=('hdjcpl: Control Panel for the Hercules DJ series hardware settings')
 install=hdjmod.install
 
-source=('ftp://ftp.hercules.com/pub/webupdate/DJCSeries/Legacy/Hercules_DJSeries_Linux.tgz'
+source=('Hercules_DJSeries_Linux.tgz'
 	'hdjmod.diff'
 	'kernel_2.6.31_fix.patch'
 	'kernel_2.6.35_fix.diff'
@@ -26,7 +26,12 @@ source=('ftp://ftp.hercules.com/pub/webupdate/DJCSeries/Legacy/Hercules_DJSeries
 	'kernel_3.6_fix.patch'
 	'kernel_3.7_fix.patch'
 	'kernel_3.16_fix.patch'
-	'kernel_4.11_fix.patch')
+	'kernel_4.11_fix.patch'
+	'kernel_4.14_fix.patch'
+	'kernel_4.15_fix.patch'
+	'kernel_kfree_fix.patch'
+	'kernel_hotplug_fix.patch'
+	'hdjmod/kernel_overrun_fix.patch')
 	   
 md5sums=('498cf0ff144f20106718932ab22571ce'
          '464f8a8eda9d4c2ec83cf1c43e5dbee3'
@@ -38,7 +43,12 @@ md5sums=('498cf0ff144f20106718932ab22571ce'
          '8bf580fcfe06f48ce8247272b55633ce'
          'f40801f32abc47088a54c8893aa27e75'
          '03b1ec1382d9d79a78cc79525cae06e4'
-         'c411e703a3e6eb25d9a83399465c31d2')
+         'c411e703a3e6eb25d9a83399465c31d2'
+         'b878f12dd6e8be9a417a23473e752b74'
+         '808b19e5870bc3d5eee8836ff828c637'
+         '50f185b145caabaede311f5a601ec089'
+         'e93256234d4adc4613f017772beef8e0'
+         '5e4bacadd9551f7e9e855cf9a1e9abfe')
 
 build() {
 	# Obtain source files
@@ -83,7 +93,18 @@ build() {
 	patch -p0 < $srcdir/kernel_3.16_fix.patch
 	
 	# Another patch to fix build errors with kernel 4.11.x (by Matthias Bach <marix@marix.org>)
-	patch -p0 < $srcdir/kernel_4.11_fix.patch	
+	patch -p0 < $srcdir/kernel_4.11_fix.patch
+
+	# Yet another patch to fix build errors with kernel 4.14.x (by Matthias Bach <marix@marix.org>)
+	patch -p1 < $srcdir/kernel_4.14_fix.patch
+
+	# Patch to fix build errors with kernel 4.15.x (by Matthias Bach <marix@marix.org>)
+	patch -p1 < $srcdir/kernel_4.15_fix.patch
+
+	# Patches from OpenSUSE to fix misc things
+	patch -p1 < $srcdir/kernel_kfree_fix.patch
+	patch -p1 < $srcdir/kernel_hotplug_fix.patch
+	patch -p1 < $srcdir/kernel_overrun_fix.patch
 	
 	# Fix again the path to slab.h in bulk.h
 	sed -i s@/usr/src/linux-$(uname -r)/include/linux/slab.h@/usr/lib/modules/$(uname -r)/build/include/linux/slab.h@ bulk.h
