@@ -44,11 +44,11 @@ md5sums=('498cf0ff144f20106718932ab22571ce'
          'f40801f32abc47088a54c8893aa27e75'
          '03b1ec1382d9d79a78cc79525cae06e4'
          'c411e703a3e6eb25d9a83399465c31d2'
-         'b878f12dd6e8be9a417a23473e752b74'
-         '808b19e5870bc3d5eee8836ff828c637'
-         '50f185b145caabaede311f5a601ec089'
-         'e93256234d4adc4613f017772beef8e0'
-         '5e4bacadd9551f7e9e855cf9a1e9abfe')
+         'cf5a2e83b4b2aa8e9b9ef062e2580fea'
+         'c294b33288094bbded42bd2bb7435cef'
+         'cb67458e801b13dc2e9fbe4ae2fc2c98'
+         'a36a75bd357407c05fbd76dc82253764'
+         '60240f98833cd7dd044e025680481b8b')
 
 build() {
 	# Obtain source files
